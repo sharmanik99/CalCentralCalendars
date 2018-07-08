@@ -2,8 +2,20 @@
 <html>
 
 <head>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.25.0/sweetalert2.all.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
     <title>Google Calendar API Quickstart</title>
     <meta charset="utf-8" />
 </head>
@@ -19,6 +31,175 @@
     <button id="parseHTML">Parse HTML</button>
     <button id="authorize_button" style="display: none;">Authorize</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
+    <br/>
+    <div id="classTable">
+        <table class="table" id="myClassTable">
+            <thead>
+                <tr>
+                    <th scope="col"><a href="#" data-toggle="modal" data-target="#titleModal">Course Title</a></th>
+                    <th scope="col"><a href="#" data-toggle="modal" data-target="#timeModal">Course Time</a></th>
+                    <th scope="col"><a href="#" data-toggle="modal" data-target="#locationModal">Course Location</a></th>
+                    <th scope="col"><a href="#" data-toggle="modal" data-target="#instructorModal">Instructor</a></th>
+                    <th scope="col"><a href="#" data-toggle="modal" data-target="#startDateModal">Course Start Date</a></th>
+                    <th scope="col"><a href="#" data-toggle="modal" data-target="#endDateModal">Course End Date</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--                 <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                </tr> -->
+            </tbody>
+            <tfoot style="display: none;" id="SubmitClassesButton">
+                <tr>
+                    <td colspan="5" text-align="center" style="width:100%">
+                        <input type="button" onclick="validateData()" class="btn btn-lg btn-block " style="width:100%" id="createClasses" value="Create Classes" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- Course Title Modal -->
+    <div class="modal fade" id="titleModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modifying Course Titles</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The course titles have been automatically imported from CalCentral but are verbose. You are welcome to change them.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Course Time Modal -->
+    <div class="modal fade" id="timeModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modifying Course Times</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The course times have been automatically imported from CalCentral and must match a specific format to be properly synced with Google Calendar.</p>
+                    <br/>
+                    <p><strong> For example: "MoWeFr 4:00PM - 4:59PM"</strong></p>
+                    <p>Format: "(Days) (Start Time AM/PM - End Time AM/PM"</p>
+                    <ul>
+                        <li>Monday is: <strong>Mo</strong></li>
+                        <li>Tuesday is: <strong>Tu</strong></li>
+                        <li>Wednesday is: <strong>We</strong></li>
+                        <li>Thursday is: <strong>Th</strong></li>
+                        <li>Friday is: <strong>Fr</strong></li>
+                        <li>Saturday is: <strong>Sa</strong></li>
+                        <li>Sunday is: <strong>Su</strong></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Course Location Modal -->
+    <div class="modal fade" id="locationModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modifying Course Times</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The course locations have been automatically imported from CalCentral and you are welcome to modify them if need be.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Course Instructor Modal -->
+    <div class="modal fade" id="instructorModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modifying Course Times</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The course instructor(s) have been automatically imported from CalCentral and you are welcome to change them if need be.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Course Start Date -->
+    <div class="modal fade" id="startDateModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modifying Course Times</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The start and end dates have not been imported and must be set otherwise will default to start of August to end of December.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Course End Date-->
+    <div class="modal fade" id="endDateModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modifying Course Times</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The start and end dates have not been imported and must be set otherwise will default to start of August to end of December.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--     <p>Enter Start Date:
+        <input type="text" id="classStart">
+    </p>
+    <br/>
+    <p>Enter End Date:
+        <input type="text" id="classEnd">
+    </p> -->
     <pre id="content"></pre>
     <div id="scheduletable"></div>
     <script type="text/javascript">
@@ -31,7 +212,7 @@
 
     // Authorization scopes required by the API; multiple scopes can be
     // included, separated by spaces.
-    var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+    var SCOPES = "https://www.googleapis.com/auth/calendar";
 
     var authorizeButton = document.getElementById('authorize_button');
     var signoutButton = document.getElementById('signout_button');
@@ -72,7 +253,7 @@
         if (isSignedIn) {
             authorizeButton.style.display = 'none';
             signoutButton.style.display = 'block';
-            listUpcomingEvents();
+            //listUpcomingEvents();
         } else {
             authorizeButton.style.display = 'block';
             signoutButton.style.display = 'none';
@@ -139,6 +320,21 @@
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
+    <div id="dialog-form" title="Create new class" style="display:none;">
+        <p class="validateTips">All form fields are required.</p>
+        <form>
+            <fieldset>
+                <label for="courseTitle">Course Title:</label>
+                <input type="text" name="courseTitle" id="courseTitle" value=" " class="text ui-widget-content ui-corner-all">
+                <label for="courseTime">Course Time:</label>
+                <input type="text" name="courseTime" id="courseTime" value=" " class="text ui-widget-content ui-corner-all">
+                <label for="courseLocation">Course Location:</label>
+                <input type="text" name="courseLocation" id="courseLocation" value=" " class="text ui-widget-content ui-corner-all">
+                <label for="courseInstructor">Course Instructor:</label>
+                <input type="text" name="courseInstructor" id="courseInstructor" value=" " class="text ui-widget-content ui-corner-all">
+            </fieldset>
+        </form>
+    </div>
 </body>
 
 </html>

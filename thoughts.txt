@@ -1,0 +1,16 @@
+client IDS: 980353214717-o4625h6079u86dfpkqrl5pdjh5k0pd3a.apps.googleusercontent.com
+
+API KEY: AIzaSyAD9A2BCX4KemZfl7r1teJsV5ojIubrtPc
+
+
+
+Two parts to the project:
+
+Part 1:
+	parsing the HTML data, getting time/location/days of the week/professor's name
+	start date and end date/notifications preference can be user input
+
+Part 2:
+	Once the HTML has been parsed, creating Google Calendar events using the API 
+
+
