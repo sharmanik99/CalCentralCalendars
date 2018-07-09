@@ -16,12 +16,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="index.js"></script>
     <link rel="stylesheet" href="index.css">
-    <title>Google Calendar API Quickstart</title>
+    <title>CalCentralCalendar</title>
     <meta charset="utf-8" />
 </head>
 
 <body>
-    <p>Google Calendar API Quickstart</p>
+    <p>CalCentralCalendar</p>
     <!--Add buttons to initiate auth sequence and sign out-->
     <form>
         HTML code:
@@ -37,6 +37,7 @@
             <thead>
                 <tr>
                     <th scope="col"><a href="#" data-toggle="modal" data-target="#titleModal">Course Title</a></th>
+                    <th scope="col"><a href="#" data-toggle="modal" data-target="#timeModal">Course Days</a></th>
                     <th scope="col"><a href="#" data-toggle="modal" data-target="#timeModal">Course Time</a></th>
                     <th scope="col"><a href="#" data-toggle="modal" data-target="#locationModal">Course Location</a></th>
                     <th scope="col"><a href="#" data-toggle="modal" data-target="#instructorModal">Instructor</a></th>
@@ -67,7 +68,7 @@
             <tfoot style="display: none;" id="SubmitClassesButton">
                 <tr>
                     <td colspan="5" text-align="center" style="width:100%">
-                        <input type="button" onclick="validateData()" class="btn btn-lg btn-block " style="width:100%" id="createClasses" value="Create Classes" />
+                        <input type="button" onclick="getUserData()" class="btn btn-lg btn-block " style="width:100%" id="createClasses" value="Create Classes" />
                     </td>
                 </tr>
             </tfoot>
