@@ -2,7 +2,6 @@
 
 This is a tool that makes it easier to sync your CalCentral calendar with Google calendar with 6 simple steps! You can either follow along with the steps below or go [here](https://imgur.com/a/u5GM9HX)
 
-Heading
 
 ## Step 1: Go to CalCentral
 
@@ -31,3 +30,11 @@ Go to CalCentralCalendar and paste the copied information into the HTML code inp
 After clicking "Parse HTML", your classes should show up in an editable table. Feel free to make any changes to the title, location, instructor, start, and end dates. If you have to change the course days or times for any reason, make sure to click on the blue "Course Days" or "Course Time" headings to get more information on how to change it. After making any changes, click the "Create Classes" button and your classes will be synced. 
 
 ![Last Step](https://i.imgur.com/lGsJlip.png)
+
+# Running locally:
+To run CalCentralCalendar locally (make sure you have python 3.x installed):
+
+ 1. `git clone https://github.com/sharmanik99/CalCentralCalendars.git`
+ 2. `cd CalCentralCalendars` 
+ 3. `python -m http.server 8000`
+ 4. Open `localhost:8000` in any browser
