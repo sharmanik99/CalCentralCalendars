@@ -1,9 +1,5 @@
-"# CalCentralCalendars" 
-Done with v1:
-	If you copy the "'tbody'" HTML tag from https://bcsweb.is.berkeley.edu/psp/bcsprd/EMPLOYEE/SA/c/SA_LEARNER_SERVICES_2.SSR_SSENRL_CART.GBL?ucFrom=CalCentral&ucFromText=My%20Academics&ucFromLink=https://calcentral.berkeley.edu/academics?ucUpdateCache=enrollment
-	and paste it into the Input box, it will automatically create Google Calendar Events for the corresponding classes.
+# Welcome to StackEdit!
 
-V2 to include:
-	ability to grab the 'tbody' element within the application elimating the manual user step.
-	cuztomizable colors for the classes
-	and any other suggestions
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. If you have finished with me, you can just create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+![First Step](https://imgur.com/888XgsO)
