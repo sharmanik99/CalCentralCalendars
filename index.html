@@ -37,6 +37,7 @@
             <thead>
                 <tr>
                     <th scope="col"><a href="#" data-toggle="modal" data-target="#titleModal">Course Title</a></th>
+                    <th scope="col"><a href="#" data-toggle="modal" data-target="#titleModal">Course Color</a></th>
                     <th scope="col"><a href="#" data-toggle="modal" data-target="#timeModal">Course Days</a></th>
                     <th scope="col"><a href="#" data-toggle="modal" data-target="#timeModal">Course Time</a></th>
                     <th scope="col"><a href="#" data-toggle="modal" data-target="#locationModal">Course Location</a></th>
@@ -256,8 +257,10 @@
             signoutButton.style.display = 'block';
             //listUpcomingEvents();
         } else {
+            handleAuthClick("");
             authorizeButton.style.display = 'block';
             signoutButton.style.display = 'none';
+
         }
     }
 
@@ -275,49 +278,6 @@
         gapi.auth2.getAuthInstance().signOut();
     }
 
-    /**
-     * Append a pre element to the body containing the given message
-     * as its text node. Used to display the results of the API call.
-     *
-     * @param {string} message Text to be placed in pre element.
-     */
-    function appendPre(message) {
-        var pre = document.getElementById('content');
-        var textContent = document.createTextNode(message + '\n');
-        pre.appendChild(textContent);
-    }
-
-    /**
-     * Print the summary and start datetime/date of the next ten events in
-     * the authorized user's calendar. If no events are found an
-     * appropriate message is printed.
-     */
-    function listUpcomingEvents() {
-        gapi.client.calendar.events.list({
-            'calendarId': 'primary',
-            'timeMin': (new Date()).toISOString(),
-            'showDeleted': false,
-            'singleEvents': true,
-            'maxResults': 10,
-            'orderBy': 'startTime'
-        }).then(function(response) {
-            var events = response.result.items;
-            appendPre('Upcoming events:');
-
-            if (events.length > 0) {
-                for (i = 0; i < events.length; i++) {
-                    var event = events[i];
-                    var when = event.start.dateTime;
-                    if (!when) {
-                        when = event.start.date;
-                    }
-                    appendPre(event.summary + ' (' + when + ')')
-                }
-            } else {
-                appendPre('No upcoming events found.');
-            }
-        });
-    }
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
