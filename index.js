@@ -131,7 +131,7 @@ function getUserData() {
 
 function validateData() {
     for (var i = 0; i < Courses.length; i++) {
-        if (Courses[i].title == "" || Courses[i].time == "" || Courses[i].days == "" || Courses[i].location == "" || Courses[i].instructor == "" || Courses[i].startDate == "" || Courses[i].endDate == "") {
+        if (Courses[i].title == "" || Courses[i].time == "" || Courses[i].colorId == "" || Courses[i].days == "" || Courses[i].location == "" || Courses[i].instructor == "" || Courses[i].startDate == "" || Courses[i].endDate == "") {
             if (Courses[i].startDate == "" || Courses[i].endDate == "") {
                 swal({
                     type: 'error',
@@ -260,6 +260,7 @@ function createEvents() {
                     'Your classes were created!',
                     'success'
                 )
+                location.reload(true);
             });
         }
     }
