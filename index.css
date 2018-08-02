@@ -49,6 +49,9 @@ div#users-contain table th {
     padding: 0.3em;
 }
 
+select{
+    margin:auto;
+}
 option._1 {
     background-color: #7986cb;
 }
