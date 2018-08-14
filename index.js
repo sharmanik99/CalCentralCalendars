@@ -260,7 +260,6 @@ function createEvents() {
                     'Your classes were created!',
                     'success'
                 )
-                location.reload(true);
             });
         }
     }
