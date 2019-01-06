@@ -33,6 +33,9 @@ $(document).ready(function() {
     testInputHTML = getUrlParam('Courses', 'Empty');
     // this is for the URL input
     if (testInputHTML != 'Empty') {
+        $('#boldText').hide();
+        $('#html').hide();
+        $('#parseHTML').hide();
         inputTitles = decodeURI(getUrlParam('Courses', 'Empty')).split('~');
         inputTimeDates = decodeURI(getUrlParam('Times', 'Empty')).split('~');
         inputLocations = decodeURI(getUrlParam('Locations', 'Empty')).split('~');
