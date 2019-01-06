@@ -20,6 +20,8 @@ $(document).ready(function() {
     var courseDays = [];
     var courseLocations = [];
     var courseInstructors = [];
+    var inputHTML = getUrlParam('inputHTML', 'Empty');
+    console.log(inputHTML);
     $("#parseHTML").click(function() {
         //console.log($('#html').val());
         docHTML = $('#html').val();
@@ -73,6 +75,16 @@ $(document).ready(function() {
     });
     //console.log(htmlDoc);
 });
+
+
+function getUrlParam(parameter, defaultvalue){
+    var urlparameter = defaultvalue;
+    if(window.location.href.indexOf(parameter) > -1){
+        urlparameter = getUrlVars()[parameter];
+        }
+    return urlparameter;
+}
+
 
 function populateClassesTable(courseTitle, courseTime, courseDays, courseLocation, courseInstructor, courseStartDate, courseEndDate, counter) {
     var newRow = $('<tr class="course">');
