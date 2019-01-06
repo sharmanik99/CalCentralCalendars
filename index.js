@@ -142,9 +142,14 @@ function mainLogic(courseTitles, courseTimes, courseDays, courseLocations, cours
     $('#scheduletable').html("");
 }
 
+function deleteRow(rowNo){
+    console.log('delete number' + rowNo);
+    $('#courseNo'+rowNo).remove();
+}
+
 
 function populateClassesTable(courseTitle, courseTime, courseDays, courseLocation, courseInstructor, courseStartDate, courseEndDate, counter) {
-    var newRow = $('<tr class="course">');
+    var newRow = $('<tr class="course" id="courseNo' + counter + '">');
     var cols = "";
 
     cols += '<td><input type="text" class="form-control" value="' + courseTitle + '" id="courseTitle' + counter + '"/></td>';
@@ -155,7 +160,7 @@ function populateClassesTable(courseTitle, courseTime, courseDays, courseLocatio
     cols += '<td><input type="text" class="form-control" value="' + courseInstructor + '" id="courseInstructor' + counter + '"/></td>';
     cols += '<td><input type="date" class="form-control" value="2019-01-21" id="courseStartDate' + counter + '"/></td>';
     cols += '<td><input type="date" class="form-control" value="2019-05-06" id="courseEndDate' + counter + '"/></td>';
-    cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+    cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete" onclick=deleteRow('+ counter + ')></td>';
     newRow.append(cols);
     $("#myClassTable").append(newRow);
 }
