@@ -21,6 +21,7 @@ class Course {
 }
 
 $(document).ready(function() {
+
     
     inputHTML = getUrlParam('inputHTML', 'Empty');
     console.log(inputHTML);
@@ -52,7 +53,7 @@ function getUrlParam(parameter, defaultvalue){
 }
 
 function mainLogic(HTMLin){
-        docHTML = inputHTML;
+        docHTML = HTMLin;
         $('#scheduletable').html(docHTML);
         $('*[id*=win0divE_CLASS_DESCR]:visible').each(function() {
             var x = $(this.childNodes[0])
