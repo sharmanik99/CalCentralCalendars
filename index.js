@@ -1,5 +1,11 @@
 var docHTML = ''
 var Courses = []
+var courseTitles = [];
+var courseTimes = [];
+var courseDays = [];
+var courseLocations = [];
+var courseInstructors = [];
+var inputHTML = '';
 
 class Course {
     constructor(title, time, colorId, days, location, instructor, startDate, endDate) {
@@ -15,16 +21,38 @@ class Course {
 }
 
 $(document).ready(function() {
-    var courseTitles = [];
-    var courseTimes = [];
-    var courseDays = [];
-    var courseLocations = [];
-    var courseInstructors = [];
-    var inputHTML = getUrlParam('inputHTML', 'Empty');
+    
+    inputHTML = getUrlParam('inputHTML', 'Empty');
     console.log(inputHTML);
+    if(inputHTML != 'Empty'){
+        mainLogic(inputHTML);
+    }
     $("#parseHTML").click(function() {
         //console.log($('#html').val());
-        docHTML = $('#html').val();
+        mainLogic($('#html').val());
+    });
+    //console.log(htmlDoc);
+});
+
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+function getUrlParam(parameter, defaultvalue){
+    var urlparameter = defaultvalue;
+    if(window.location.href.indexOf(parameter) > -1){
+        urlparameter = getUrlVars()[parameter];
+        }
+    return urlparameter;
+}
+
+function mainLogic(HTMLin){
+        docHTML = inputHTML;
         $('#scheduletable').html(docHTML);
         $('*[id*=win0divE_CLASS_DESCR]:visible').each(function() {
             var x = $(this.childNodes[0])
@@ -72,23 +100,6 @@ $(document).ready(function() {
 
 
         $('#scheduletable').html("");
-    });
-    //console.log(htmlDoc);
-});
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-        vars[key] = value;
-    });
-    return vars;
-}
-
-function getUrlParam(parameter, defaultvalue){
-    var urlparameter = defaultvalue;
-    if(window.location.href.indexOf(parameter) > -1){
-        urlparameter = getUrlVars()[parameter];
-        }
-    return urlparameter;
 }
 
 
