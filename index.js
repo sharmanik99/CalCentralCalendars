@@ -1,11 +1,20 @@
 var docHTML = ''
 var Courses = []
+
+
 var courseTitles = [];
 var courseTimes = [];
 var courseDays = [];
 var courseLocations = [];
 var courseInstructors = [];
-var inputHTML = '';
+
+
+var inputTitles = [];
+var inputTimeDates = [];
+var inputTimes = [];
+var inputDates = [];
+var inputLocations = [];
+var inputInstructors = [];
 
 class Course {
     constructor(title, time, colorId, days, location, instructor, startDate, endDate) {
@@ -21,39 +30,43 @@ class Course {
 }
 
 $(document).ready(function() {
-
-    
-    inputHTML = getUrlParam('inputHTML', 'Empty');
-    console.log(inputHTML);
-    if(inputHTML != 'Empty'){
-        mainLogic(inputHTML);
+    testInputHTML = getUrlParam('Courses', 'Empty');
+    // this is for the URL input
+    if (testInputHTML != 'Empty') {
+        inputTitles = decodeURI(getUrlParam('Courses', 'Empty')).split('~');
+        inputTimeDates = decodeURI(getUrlParam('Times', 'Empty')).split('~');
+        inputLocations = decodeURI(getUrlParam('Locations', 'Empty')).split('~');
+        inputInstructors = decodeURI(getUrlParam('Instructors', 'Empty')).split('~');
+        // console.log(inputTitles);
+        // console.log(inputTimeDates);
+        // console.log(inputLocations);
+        // console.log(inputInstructors);
+        splitNeeded = inputTimeDates;
+        //console.log(splitNeeded);
+        for (var i = 0; i < splitNeeded.length; i++) {
+            elem = splitNeeded[i];
+            var tempTime = elem.split(" ").slice(1).join(' ');
+            if (tempTime == "" || tempTime == " ") {
+                inputTimes.push("N/A")
+            } else {
+                inputTimes.push(tempTime)
+            }
+            var tempDay = elem.split(" ")[0]
+            if (tempDay == "TBA" || tempDay == "" || tempDay.replace(/\s/g, '').length == 0) {
+                inputDates.push("N/A");
+            } else {
+                inputDates.push(tempDay);
+            }
+        }
+        // console.log(inputTimes);
+        // console.log(inputDates);
+        mainLogic(inputTitles, inputTimes, inputDates, inputLocations, inputInstructors);
     }
+
+    //this is for manual input
     $("#parseHTML").click(function() {
         //console.log($('#html').val());
-        mainLogic($('#html').val());
-    });
-    //console.log(htmlDoc);
-});
-
-
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-        vars[key] = value;
-    });
-    return vars;
-}
-
-function getUrlParam(parameter, defaultvalue){
-    var urlparameter = defaultvalue;
-    if(window.location.href.indexOf(parameter) > -1){
-        urlparameter = getUrlVars()[parameter];
-        }
-    return urlparameter;
-}
-
-function mainLogic(HTMLin){
-        docHTML = HTMLin;
+        docHTML = $('#html').val();
         $('#scheduletable').html(docHTML);
         $('*[id*=win0divE_CLASS_DESCR]:visible').each(function() {
             var x = $(this.childNodes[0])
@@ -94,13 +107,36 @@ function mainLogic(HTMLin){
         // console.log(courseTimes.length)
         // console.log(courseLocations.length)
         // console.log(courseInstructors.length)
-        for (var i = 0; i < courseTitles.length; i++) {
-            populateClassesTable(courseTitles[i], courseTimes[i], courseDays[i], courseLocations[i], courseInstructors[i], "", "", i)
-        }
-        $('#SubmitClassesButton').show();
+        mainLogic(courseTitles, courseTimes, courseDays, courseLocations, courseInstructors);
+    });
+    //console.log(htmlDoc);
+});
 
 
-        $('#scheduletable').html("");
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+function getUrlParam(parameter, defaultvalue) {
+    var urlparameter = defaultvalue;
+    if (window.location.href.indexOf(parameter) > -1) {
+        urlparameter = getUrlVars()[parameter];
+    }
+    return urlparameter;
+}
+
+function mainLogic(courseTitles, courseTimes, courseDays, courseLocations, courseInstructors) {
+    for (var i = 0; i < courseTitles.length; i++) {
+        populateClassesTable(courseTitles[i], courseTimes[i], courseDays[i], courseLocations[i], courseInstructors[i], "", "", i)
+    }
+    $('#SubmitClassesButton').show();
+
+
+    $('#scheduletable').html("");
 }
 
 
@@ -121,11 +157,11 @@ function populateClassesTable(courseTitle, courseTime, courseDays, courseLocatio
     $("#myClassTable").append(newRow);
 }
 
-function updateSelected(counter){
+function updateSelected(counter) {
     // var colorID = $('select[name="ClassColors' + counter + '"] option:selected').attr('class').replace(/^_+/i, '')
     // console.log(colorID)
     var hexColor = $('#ClassColors' + counter).val()
-    document.getElementById('ClassColors' + counter).style.backgroundColor=hexColor;
+    document.getElementById('ClassColors' + counter).style.backgroundColor = hexColor;
 }
 
 
