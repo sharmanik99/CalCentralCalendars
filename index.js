@@ -150,8 +150,8 @@ function populateClassesTable(courseTitle, courseTime, courseDays, courseLocatio
     cols += '<td><input type="text" class="form-control" value="' + courseTime + '" id="courseTime' + counter + '"/></td>';
     cols += '<td><input type="text" class="form-control" value="' + courseLocation + '" id="courseLocation' + counter + '"/></td>';
     cols += '<td><input type="text" class="form-control" value="' + courseInstructor + '" id="courseInstructor' + counter + '"/></td>';
-    cols += '<td><input type="date" class="form-control" value="2018-08-22" id="courseStartDate' + counter + '"/></td>';
-    cols += '<td><input type="date" class="form-control" value="2018-11-30" id="courseEndDate' + counter + '"/></td>';
+    cols += '<td><input type="date" class="form-control" value="2019-01-21" id="courseStartDate' + counter + '"/></td>';
+    cols += '<td><input type="date" class="form-control" value="2019-05-06" id="courseEndDate' + counter + '"/></td>';
     cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
     newRow.append(cols);
     $("#myClassTable").append(newRow);
