@@ -152,14 +152,14 @@ function populateClassesTable(courseTitle, courseTime, courseDays, courseLocatio
     var newRow = $('<tr class="course" id="courseNo' + counter + '">');
     var cols = "";
 
-    cols += '<td><input type="text" class="form-control" value="' + courseTitle + '" id="courseTitle' + counter + '"/></td>';
-    cols += '<td><select id="ClassColors' + counter + '" name="ClassColors' + counter + '" onchange="updateSelected(' + counter + ')"> <option class="">Pick a Color </option> <option class="_1" value="#7986cb">Lavendar</option><option class="_2" value="#33b679">Sage</option><option class="_3" value="#8e24aa">Grape</option><option class="_4" value="#e67c73">Flamingo</option><option class="_5" value="#f6c026">Banana</option><option class="_6" value="#f5511d">Tangerine</option><option class="_7" value="#039be5">Peacock</option><option class="_8" value="#616161">Graphite</option><option class="_9" value="#3f51b5">Blueberry</option><option class="_10" value="#0b8043">Basil</option><option class="_11" value="#d60000">Tomato</option> </select></td>';
-    cols += '<td><input type="text" class="form-control" value="' + courseDays + '" id="courseDay' + counter + '"/></td>';
-    cols += '<td><input type="text" class="form-control" value="' + courseTime + '" id="courseTime' + counter + '"/></td>';
-    cols += '<td><input type="text" class="form-control" value="' + courseLocation + '" id="courseLocation' + counter + '"/></td>';
-    cols += '<td><input type="text" class="form-control" value="' + courseInstructor + '" id="courseInstructor' + counter + '"/></td>';
-    cols += '<td><input type="date" class="form-control" value="2019-01-21" id="courseStartDate' + counter + '"/></td>';
-    cols += '<td><input type="date" class="form-control" value="2019-05-06" id="courseEndDate' + counter + '"/></td>';
+    cols += '<td><input type="text" class="CourseTitle form-control" value="' + courseTitle + '" id="courseTitle' + counter + '"/></td>';
+    cols += '<td><select id="ClassColors' + counter + '" name="ClassColors' + counter + '" class="classColors" onchange="updateSelected(' + counter + ')"> <option class="">Pick a Color </option> <option class="_1" value="#7986cb">Lavendar</option><option class="_2" value="#33b679">Sage</option><option class="_3" value="#8e24aa">Grape</option><option class="_4" value="#e67c73">Flamingo</option><option class="_5" value="#f6c026">Banana</option><option class="_6" value="#f5511d">Tangerine</option><option class="_7" value="#039be5">Peacock</option><option class="_8" value="#616161">Graphite</option><option class="_9" value="#3f51b5">Blueberry</option><option class="_10" value="#0b8043">Basil</option><option class="_11" value="#d60000">Tomato</option> </select></td>';
+    cols += '<td><input type="text" class="CourseDay form-control" value="' + courseDays + '" id="courseDay' + counter + '"/></td>';
+    cols += '<td><input type="text" class="CourseTime form-control" value="' + courseTime + '" id="courseTime' + counter + '"/></td>';
+    cols += '<td><input type="text" class="CourseLocation form-control" value="' + courseLocation + '" id="courseLocation' + counter + '"/></td>';
+    cols += '<td><input type="text" class="CourseInstructor form-control" value="' + courseInstructor + '" id="courseInstructor' + counter + '"/></td>';
+    cols += '<td><input type="date" class="CourseStart form-control" value="2019-01-21" id="courseStartDate' + counter + '"/></td>';
+    cols += '<td><input type="date" class="CourseEnd form-control" value="2019-05-06" id="courseEndDate' + counter + '"/></td>';
     cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete" onclick=deleteRow('+ counter + ')></td>';
     newRow.append(cols);
     $("#myClassTable").append(newRow);
@@ -177,26 +177,27 @@ function getUserData() {
     //console.log("Validating data");
 
     counter = 0;
+    cColors = []
+    $(".classColors").each(function() {
+        //console.log($(this).find('option:selected').attr('class').replace(/^_+/i, ''));
+        cColors.push($(this).find('option:selected').attr('class').replace(/^_+/i, ''))
+    });
     $("tr.course").each(function() {
-        if(typeof($(this).find("#courseTitle" + counter).val()) !== 'undefined'){
-             console.log(counter, $(this).find("#courseTitle" + counter).val());
-            var courseTitle = $(this).find("#courseTitle" + counter).val();
-            var courseTime = $(this).find("#courseTime" + counter).val();
-            var courseColorId = $('select[name="ClassColors' + counter + '"] option:selected').attr('class').replace(/^_+/i, '')
-            var courseDay = $(this).find("#courseDay" + counter).val();
-            var courseLocation = $(this).find("#courseLocation" + counter).val();
-            var courseInstructor = $(this).find("#courseInstructor" + counter).val();
-            var courseStartDate = $(this).find("#courseStartDate" + counter).val();
-            var courseEndDate = $(this).find("#courseEndDate" + counter).val();
+            console.log($(this).find(".CourseTitle").val());
+            var courseTitle = $(this).find(".CourseTitle").val();
+            var courseTime = $(this).find(".CourseTime").val();
+            //var courseColorId = $('select[class="ClassColors"] option:selected').attr('class').replace(/^_+/i, '')
+            var courseColorId = cColors[counter];
+            //console.log(courseColorId);
+            var courseDay = $(this).find(".CourseDay").val();
+            var courseLocation = $(this).find(".CourseLocation").val();
+            var courseInstructor = $(this).find(".CourseInstructor").val();
+            var courseStartDate = $(this).find(".CourseStart").val();
+            var courseEndDate = $(this).find(".CourseEnd").val();
             counter++;
             let tempCourse = new Course(courseTitle, courseTime, courseColorId, courseDay, courseLocation, courseInstructor, courseStartDate, courseEndDate)
             //console.log(tempCourse)
-            Courses.push(tempCourse);
-        }
-        else{
-            counter++;
-        }
-       
+            Courses.push(tempCourse); 
     });
     if (validateData()) {
         createEvents();
