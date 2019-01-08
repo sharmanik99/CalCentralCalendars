@@ -175,20 +175,28 @@ function updateSelected(counter) {
 
 function getUserData() {
     //console.log("Validating data");
+
     counter = 0;
     $("tr.course").each(function() {
-        var courseTitle = $(this).find("#courseTitle" + counter).val();
-        var courseTime = $(this).find("#courseTime" + counter).val();
-        var courseColorId = $('select[name="ClassColors' + counter + '"] option:selected').attr('class').replace(/^_+/i, '')
-        var courseDay = $(this).find("#courseDay" + counter).val();
-        var courseLocation = $(this).find("#courseLocation" + counter).val();
-        var courseInstructor = $(this).find("#courseInstructor" + counter).val();
-        var courseStartDate = $(this).find("#courseStartDate" + counter).val();
-        var courseEndDate = $(this).find("#courseEndDate" + counter).val();
-        counter++;
-        let tempCourse = new Course(courseTitle, courseTime, courseColorId, courseDay, courseLocation, courseInstructor, courseStartDate, courseEndDate)
-        //console.log(tempCourse)
-        Courses.push(tempCourse);
+        if(typeof($(this).find("#courseTitle" + counter).val()) !== 'undefined'){
+             console.log(counter, $(this).find("#courseTitle" + counter).val());
+            var courseTitle = $(this).find("#courseTitle" + counter).val();
+            var courseTime = $(this).find("#courseTime" + counter).val();
+            var courseColorId = $('select[name="ClassColors' + counter + '"] option:selected').attr('class').replace(/^_+/i, '')
+            var courseDay = $(this).find("#courseDay" + counter).val();
+            var courseLocation = $(this).find("#courseLocation" + counter).val();
+            var courseInstructor = $(this).find("#courseInstructor" + counter).val();
+            var courseStartDate = $(this).find("#courseStartDate" + counter).val();
+            var courseEndDate = $(this).find("#courseEndDate" + counter).val();
+            counter++;
+            let tempCourse = new Course(courseTitle, courseTime, courseColorId, courseDay, courseLocation, courseInstructor, courseStartDate, courseEndDate)
+            //console.log(tempCourse)
+            Courses.push(tempCourse);
+        }
+        else{
+            counter++;
+        }
+       
     });
     if (validateData()) {
         createEvents();
